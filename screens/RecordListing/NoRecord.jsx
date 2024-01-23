@@ -13,7 +13,7 @@ function NoRecordScreen({addCallback}){
         <Column 
             justifyConteny="center" 
             alignItems="center"
-            backgroundColor="red"
+            backgroundColor="#F0F4C3"
             >
             
             <Text style= {style.headerStyle}>
@@ -36,10 +36,11 @@ const style = StyleSheet.create({
         backgroundColor: 'orange',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        margin: 8
     },
     headerStyle: {
-        color: 'white',
+        color: 'black',
         fontSize: 20
     },
     label: {

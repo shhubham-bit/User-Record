@@ -1,26 +1,34 @@
-import { Button, StyleSheet } from "react-native";
+import { Button, ImageBackground, StyleSheet, View } from "react-native";
 import { Column } from "../../customComponent/LayoutComponent";
 import TextWithLabel from "../../customComponent/TextWithLabel";
+import { Menu, MenuOption, MenuOptions, MenuTrigger } from "react-native-popup-menu";
+import { useState } from "react";
+import TextButton from "../../customComponent/TextButton";
+import ImageButton from "../../customComponent/ImageButton";
 
 
 function RecordItem({data,index, updateCallback, deleteCallback}){
 
+    const [displayMenu, setMenu] = useState(false)
+
     const updatePress = ()=> {
         updateCallback(index)
+        setMenu(false)
     }
 
     const deletePress = ()=> {
         deleteCallback(index)
+        setMenu(false)
     }
 
     return(
         <Column 
-            borderColor="grey"
-            borderWidth={1}
             margin={4}
             padding={4}
             borderRadius={10}
-            backgroundColor="orange"
+            backgroundColor="white"
+            borderColor = "#9CCC65"
+            borderWidth = {3}
             
             >
             <TextWithLabel 
@@ -47,15 +55,44 @@ function RecordItem({data,index, updateCallback, deleteCallback}){
                 label={"Email"}
                 value={data.email}
             />
-            <Button 
-            title="update"
-            onPress={updatePress}
-            />
-            <Button 
-            title="delete"
-            onPress={deletePress}
-            />
-        </Column>
+            <ImageButton
+                layoutStyle={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    backgroundColor: 'red',
+                    margin: 10
+                }}
+                onPressCallback={()=> setMenu(!displayMenu)}
+                buttonStyle={{
+                    height: 20,
+                    width: 10
+                }}
+                
+             />
+            { displayMenu &&<View style = {{
+                backgroundColor: 'white', 
+                flex: 0, 
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                borderRadius: 10,
+                marginHorizontal: 22,
+                marginVertical: 4,
+                borderColor: 'black',
+                borderWidth: 1,
+                borderRadius: 10,
+                zIndex: 8,
+                shadowColor: 'grey'
+            }}
+            > 
+                <Button onPress={ updatePress}
+                    title="Update"/>
+                <Button onPress={deletePress}
+                title="Delete"/>          
+            </View>
+            }
+            </Column>
     )
 }
 
@@ -68,11 +105,11 @@ const style = StyleSheet.create({
     },
     labelStyle: {
         color: 'grey',
-        fontSize: 12,
+        fontSize: 16,
         paddingHorizontal: 14
     },
     textStyle: {
         color: 'black',
-        fontSize: 16
+        fontSize: 18
     }
 })

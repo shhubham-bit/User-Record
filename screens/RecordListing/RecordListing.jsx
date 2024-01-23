@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../appHooks";
 import RecordItem from "./RecordItem";
 import TextButton from "../../customComponent/TextButton";
 import { deleteRecord } from "../../reducers/AddRecordReducer";
+import { MenuProvider } from "react-native-popup-menu";
 
 
 function RecordListing({navigation}){
@@ -30,11 +31,12 @@ function RecordListing({navigation}){
     }
 
     return(
-        <SafeAreaColumn >
+        <MenuProvider>
+            <SafeAreaColumn >
             {
                 records.length == 0 ?
                 <NoRecord addCallback={addcallback}/> :
-                <Column backgroundColor="red">
+                <Column backgroundColor="#DCEDC8">
                     <FlatList 
                     data={records}
                     renderItem={(item) => <RecordItem 
@@ -52,7 +54,9 @@ function RecordListing({navigation}){
                     />
                 </Column>
             }
-        </SafeAreaColumn> 
+            </SafeAreaColumn> 
+        </MenuProvider>
+        
     )
 }
 
@@ -60,11 +64,13 @@ const style = StyleSheet.create({
     button: {
         height: 50,
         width: 100,
-        backgroundColor: 'orange',
+        backgroundColor: '#689F38',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginBottom: 25,
+        marginTop: 10
     },
     headerStyle: {
         color: 'white',

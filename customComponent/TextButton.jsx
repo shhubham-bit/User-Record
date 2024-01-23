@@ -2,7 +2,7 @@ import { Text, TouchableOpacity } from "react-native";
 import { Column } from "./LayoutComponent";
 
 
-function TextButton({buttonStyle, textStyle, label, callBack}){
+function TextButton({buttonStyle = {}, textStyle = {}, label, callBack}){
 
     return(
         <TouchableOpacity 

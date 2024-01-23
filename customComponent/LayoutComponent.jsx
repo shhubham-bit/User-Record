@@ -37,8 +37,7 @@ export const Row = ({children, rowStyle ={} }) =>{
     return(
         <View style = {
                 {
-                flex: 1, 
-                flexDirection: 'row',
+                flexDirection : 'row',
                 ...rowStyle,
             }
             }>

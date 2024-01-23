@@ -1,44 +1,67 @@
-import { Image, TextInput } from "react-native";
-import { Row } from "./LayoutComponent";
+import { Image, Text, TextInput } from "react-native";
+import { Column, Row } from "./LayoutComponent";
+import { useRef, useState } from "react";
 
 
 function InputField({
     id,
     value, 
-    onTextChange, 
-    showIcon = false, 
-    iconUrl,
-    ref,
+    onTextChange,  
+    innerRef,
     style,
-    hint
+    hint,
+    onSubmitEditing = ()=> {},
+    onFocus = ()=> {},
+    onBlurUpdate = ()=> {},
+    focusStyle,
+    errorStyle, 
+    showError,
+    errorText,
+    inputMode = "none"
 }){
+
+    const [focusState, setFocus] = useState(false)
 
     const textListener = (text) => {
         console.log("bjdxbajk", text)
         onTextChange(id, text)
     }
 
+    const focusTriggerCallback = ()=> {
+        setFocus(true)
+        onFocus(id)
+    }
+
+    const blurTriggerCallback = ()=> {
+        setFocus(false)
+        onBlurUpdate(id)
+    }
+
     return(
-        <Row rowStyle={{flex: 0}}>
+        <Column flex={0}>
             <TextInput 
                 value={value}
                 onChangeText={(e) => textListener(e)}
-                ref={ref}
+                ref={innerRef}
                 placeholder={hint}
-                style= {style}
+                style= {[style, focusState && focusStyle, showError && errorStyle]}
                 enterKeyHint="next"
-                // onSubmitEditing={
-                //     console.log("bjcxbajbcjka", id)
-                // }
+                onSubmitEditing={() => {
+                   onSubmitEditing()
+                }}
+                onFocus={focusTriggerCallback}
+                onBlur={blurTriggerCallback}
+                inputMode={inputMode}
                 >
             </TextInput>
-            {
-                showIcon && <Image>
-
-                </Image>
+            { showError && <Text style = {{
+                paddingHorizontal: 25, 
+                marginTop: 4,
+                fontSize: 12,
+                color: "#B00020"
+                }}>{errorText}</Text>
             }
-            
-        </Row>
+        </Column>
     )
 }
 
