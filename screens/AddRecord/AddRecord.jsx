@@ -7,9 +7,9 @@ import { useAppDispatch } from "../../appHooks";
 import { addNewRecord, updateRecord } from "../../reducers/AddRecordReducer";
 import nameValidation from "../../validation/namevalidator";
 import phoneValidation from "../../validation/phonevalidator";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
 import InputFieldWithIcon from "../../customComponent/InputFieldWithIcon";
 import emailValidation from "../../validation/emailValidator";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 function AddRecord( {route, navigation} ){
 
@@ -200,9 +200,7 @@ function AddRecord( {route, navigation} ){
                 minimumDate={new Date(1950, 0, 1)}
                 maximumDate={new Date(2030, 10, 20)}
                 onChange={(date)=> dateChangeListener(date)}
-                onConfirm = {()=> {
-                    console.log("svhghka")
-                }}
+                
             />}
             <Column 
                 justifyConteny="center" 
